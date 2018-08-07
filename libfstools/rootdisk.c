@@ -126,7 +126,7 @@ static struct volume *rootdisk_volume_find(char *name)
 	struct squashfs_super_block sb;
 	struct rootdev_volume *p;
 
-	if (strcmp(name, "rootfs_data") != 0)
+	if (strcmp(name, "usrfs") != 0)
 		return NULL;
 
 	if (!rootdev)
@@ -148,7 +148,7 @@ static struct volume *rootdisk_volume_find(char *name)
 
 	p = calloc(1, sizeof(*p));
 	p->v.drv = &rootdisk_driver;
-	p->v.name = "rootfs_data";
+	p->v.name = "usrfs";
 
 	p->offset = le64_to_cpu(sb.bytes_used);
 	p->offset = ((p->offset + (ROOTDEV_OVERLAY_ALIGN - 1)) &
@@ -268,9 +268,9 @@ static int rootdisk_volume_init(struct volume *v)
 	case FS_NONE:
 		ULOG_INFO("rootdisk overlay filesystem has not been formatted yet\n");
 		if (rootdisk_use_f2fs(p))
-			snprintf(str, sizeof(str), "mkfs.f2fs -q -l rootfs_data %s", v->blk);
+			snprintf(str, sizeof(str), "mkfs.f2fs -q -l usrfs %s", v->blk);
 		else
-			snprintf(str, sizeof(str), "mkfs.ext4 -q -L rootfs_data %s", v->blk);
+			snprintf(str, sizeof(str), "mkfs.ext4 -q -L usrfs %s", v->blk);
 		ret = system(str);
 		break;
 	default:

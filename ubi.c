@@ -314,7 +314,7 @@ int main(int argc, char **argv)
 		return main_image("rootfs", argv[2], NULL);
 
 	} else if (!strcmp(argv[1], "overlay")) {
-		return main_image("rootfs", argv[2], "rootfs_data");
+		return main_image("rootfs", argv[2], "usrfs");
 
 	} else if (!strcmp(argv[1], "detach")) {
 		return main_detach(argv[2]);

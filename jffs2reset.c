@@ -111,7 +111,7 @@ int main(int argc, char **argv)
 
 	/*
 	 * TODO: Currently this only checks if kernel supports OverlayFS. We
-	 * should check if there is a mount point using it with rootfs_data
+	 * should check if there is a mount point using it with usrfs
 	 * as upperdir.
 	 */
 	if (find_filesystem("overlay")) {
@@ -119,9 +119,9 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	v = volume_find("rootfs_data");
+	v = volume_find("usrfs");
 	if (!v) {
-		ULOG_ERR("MTD partition 'rootfs_data' not found\n");
+		ULOG_ERR("MTD partition 'usrfs' not found\n");
 		return -1;
 	}
 

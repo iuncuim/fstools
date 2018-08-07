@@ -1364,12 +1364,12 @@ static int main_extroot(int argc, char **argv)
 	ulog_threshold(LOG_INFO);
 
 	/*
-	 * Look for "rootfs_data". We will want to mount it and check for
+	 * Look for "usrfs". We will want to mount it and check for
 	 * extroot configuration.
 	 */
 
 	/* Start with looking for MTD partition */
-	find_block_mtd("\"rootfs_data\"", blkdev_path, sizeof(blkdev_path));
+	find_block_mtd("\"usrfs\"", blkdev_path, sizeof(blkdev_path));
 	if (blkdev_path[0]) {
 		pr = find_block_info(NULL, NULL, blkdev_path);
 		if (pr && !strcmp(pr->type, "jffs2")) {
@@ -1395,7 +1395,7 @@ static int main_extroot(int argc, char **argv)
 	/* ... but it also could be an UBI volume */
 	memset(blkdev_path, 0, sizeof(blkdev_path));
 	libubi = libubi_open();
-	find_block_ubi(libubi, "rootfs_data", blkdev_path, sizeof(blkdev_path));
+	find_block_ubi(libubi, "usrfs", blkdev_path, sizeof(blkdev_path));
 	libubi_close(libubi);
 	if (blkdev_path[0]) {
 		char cfg[] = "/tmp/ubifs_cfg";
