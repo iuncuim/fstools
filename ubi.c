@@ -132,7 +132,7 @@ static int main_detach(char *type)
 	if (!strcmp(type, "kernel"))
 		err = mtd_find("kernel_ubi", mtd);
 	else if (!strcmp(type, "rootfs"))
-		err = mtd_find("rootfs_ubi", mtd);
+		err = mtd_find("system", mtd);
 	else
 		return print_usage();
 
@@ -190,7 +190,7 @@ static int main_image(char *partition, char *image, char *overlay)
 	if (!strcmp(partition, "kernel"))
 		err = mtd_find("kernel_ubi", mtd);
 	else
-		err = mtd_find("rootfs_ubi", mtd);
+		err = mtd_find("system", mtd);
 	if (err) {
 		ULOG_ERR("MTD partition '%s_ubi' not found\n", partition);
 		return -1;
@@ -199,7 +199,7 @@ static int main_image(char *partition, char *image, char *overlay)
 	if (!strcmp(partition, "kernel"))
 		err = ubi_find(libubi, "kernel_ubi", node);
 	else
-		err = ubi_find(libubi, "rootfs_ubi", node);
+		err = ubi_find(libubi, "system", node);
 	if (err) {
 		ULOG_ERR("UBI volume '%s' not found\n", partition);
 		return -1;
